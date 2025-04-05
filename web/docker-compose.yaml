@@ -1,0 +1,32 @@
+networks:
+  bank:
+    driver: bridge
+
+services:
+  web:
+    image: web:latest
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - bank
+    environment:
+      - DATABASE_URL=mysql://root:root@db:3306/bank
+  migrate:
+    image: migrate:latest
+    restart: on-failure
+    networks:
+      - bank
+    environment:
+      - DATABASE_URL=mysql://root:root@db:3306/bank
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - bank
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=bank
+      - MYSQL_TCP_PORT=3306

@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "99d53155-be2f-4718-8055-74811bb4394c",
+		"name": "automated software testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2457217"
+	},
+	"item": [
+		{
+			"name": "contas",
+			"item": [
+				{
+					"name": "conta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/contas/321654",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contas",
+								"321654"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transferir",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Retornou recibo\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"recibo\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"origem\": \"123456\",\n    \"destino\": \"654321\",\n    \"valor\": 100.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/contas/transferir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"contas",
+								"transferir"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
